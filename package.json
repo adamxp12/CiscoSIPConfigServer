@@ -1,0 +1,26 @@
+{
+  "name": "ciscosipconfigserver",
+  "version": "1.0.0",
+  "description": "A nice Admin Panel/TFTP server for configuring Cisco Unified IP phones for a SIP system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamxp12/CiscoSIPConfigServer.git"
+  },
+  "keywords": [
+    "cisco",
+    "sip",
+    "tftp",
+    "admin",
+    "panel"
+  ],
+  "author": "adamblunt.me",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adamxp12/CiscoSIPConfigServer/issues"
+  },
+  "homepage": "https://github.com/adamxp12/CiscoSIPConfigServer#readme"
+}
