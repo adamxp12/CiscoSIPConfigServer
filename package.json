@@ -24,7 +24,18 @@
   },
   "homepage": "https://github.com/adamxp12/CiscoSIPConfigServer#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "cli-clear": "^1.0.4",
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "helmet": "^3.4.1",
+    "mongoose": "^4.5.9",
+    "shortid": "^2.2.6",
+    "unix-timestamp": "^0.2.0",
+    "xss": "^0.2.13"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0",
+    "request": "^2.75.0"
   }
 }
