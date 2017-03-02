@@ -27,8 +27,13 @@ app.get('/', function (req, res) {
 })
 
 app.get('/drivers', function(req, res) {
-    res.send(Object.keys(drivers).length + " Drivers")
-})
+    var test = "";
+    for(driver in drivers) {
+        test = test + drivers[driver].name + "<br>";
+    }
+    res.send(test)
+    
+});
 
 
 // Routes over so lets start the server
