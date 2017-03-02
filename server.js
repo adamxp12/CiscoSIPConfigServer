@@ -11,7 +11,8 @@ var express = require('express'),
     xss = require('xss'),
     shortid = require('shortid'),
     helmet = require('helmet'),
-    config = require('./config');
+    config = require('./config'),
+    drivers = require('./drivers/');
 
 // Express setup
 app.use(express.static('public'));
@@ -23,6 +24,10 @@ app.use(helmet({
 
 app.get('/', function (req, res) {
     res.send(package.name + " v" + package.version)
+})
+
+app.get('/drivers', function(req, res) {
+    res.send(Object.keys(drivers).length + " Drivers")
 })
 
 
