@@ -10,10 +10,8 @@ var express = require('express'),
     package = require('./package.json'),
     xss = require('xss'),
     shortid = require('shortid'),
-    helmet = require('helmet');
-
-// Some varibles
-var port = 3000;
+    helmet = require('helmet'),
+    config = require('./config');
 
 // Express setup
 app.use(express.static('public'));
@@ -29,8 +27,8 @@ app.get('/', function (req, res) {
 
 
 // Routes over so lets start the server
-app.listen(port, function () {
+app.listen(config.webport, function () {
     clear()
     console.log(package.name + " v" + package.version)
-    console.log("Serving requts on *:"+port)
+    console.log("Serving requts on *:"+config.webport)
 })
