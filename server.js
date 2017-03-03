@@ -10,6 +10,7 @@ var express = require('express'),
     clear = require("cli-clear"),
     package = require('./package.json'),
     xss = require('xss'),
+    fs = require('fs'),
     shortid = require('shortid'),
     helmet = require('helmet'),
     config = require('./config'),
@@ -27,21 +28,45 @@ app.use(session({
   resave: false
 }));
 
+var header = fs.readFileSync("./inc/header.inc", "utf8", function(err, data) { if (err) throw err; });
+var footer = fs.readFileSync("./inc/footer.inc", "utf8", function(err, data) { if (err) throw err; });
+var loginpage = fs.readFileSync("./inc/login.inc", "utf8", function(err, data) { if (err) throw err; });
+
+
+
 // Init finished time to do some routes
 
-app.get('/', function (req, res) {
-    res.send(package.name + " v" + package.version)
+// Add header
+app.get('/*', function(req, res, next) {
+    req.page = header;
+    next()
 })
 
-app.get('/drivers', function(req, res) {
+// routes go here
+
+app.get('/', function (req, res, next) {
+    loginpage=loginpage.replace("{ver}", package.version)
+    req.page = req.page+loginpage
+    next()
+})
+
+
+app.get('/drivers', function(req, res, next) {
     var test = "";
     for(driver in drivers) {
         test = test + drivers[driver].name + "<br>";
     }
-    res.send(test)
+    req.page = req.page+test;
+    next()
     
 });
 
+
+// Add footer
+app.get('/*', function(req,res) {
+    req.page = req.page+footer;
+    res.send(req.page)
+})
 
 // Routes over so lets start the server
 app.listen(config.webport, function () {
