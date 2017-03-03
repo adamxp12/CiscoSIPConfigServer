@@ -11,6 +11,11 @@ config.tftp = {};
 // Default: 3000
 config.webport = 3000;
 
+// Session secret, keep this private and change it before use, if left default then we will randomly generate a secret which will
+// deauth users on server restart due to changing secret
+
+config.secret = "23456tgfdswertyuikmnbiuyuhyui8kjfdiqvwuikkftryhuyg3urio43pjre7dsatyu9iofk63wudq98r43yt78iur873";
+
 // === TFTP ====
 
 // Enable built in TFTP server. In some rare instances you might want to bypass the built in TFTP server for a standalone one

@@ -6,6 +6,7 @@
 // Requires
 var express = require('express'),
     app = express(),
+    session = require('express-session'),
     clear = require("cli-clear"),
     package = require('./package.json'),
     xss = require('xss'),
@@ -18,6 +19,12 @@ var express = require('express'),
 app.use(express.static('public'));
 app.use(helmet({
   hidePoweredBy: false
+}));
+app.use(session({
+  secret: config.secret,
+  cookie: {},
+  saveUninitialized: false,
+  resave: false
 }));
 
 // Init finished time to do some routes
