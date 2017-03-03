@@ -25,6 +25,7 @@
   "homepage": "https://github.com/adamxp12/CiscoSIPConfigServer#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.0",
     "cli-clear": "^1.0.4",
     "express": "^4.14.1",
     "express-session": "^1.15.1",

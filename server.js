@@ -7,6 +7,7 @@
 var express = require('express'),
     app = express(),
     session = require('express-session'),
+    bodyParser = require('body-parser'),
     clear = require("cli-clear"),
     package = require('./package.json'),
     xss = require('xss'),
@@ -17,6 +18,7 @@ var express = require('express'),
     drivers = require('./drivers/');
 
 // Express setup
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use(helmet({
   hidePoweredBy: false
@@ -38,6 +40,7 @@ var loginpage = fs.readFileSync("./inc/login.inc", "utf8", function(err, data) {
 
 // Add header
 app.get('/*', function(req, res, next) {
+    session=req.session;
     req.page = header;
     next()
 })
@@ -47,7 +50,29 @@ app.get('/*', function(req, res, next) {
 app.get('/', function (req, res, next) {
     loginpage=loginpage.replace("{ver}", package.version)
     req.page = req.page+loginpage
+    if(session.user) {
+        req.page = req.page.replace("{user}", session.user)
+    }
     next()
+})
+
+app.get('/logout', function(req,res) {
+    session.user = null;
+    res.redirect('/')
+})
+
+app.post('/login', function(req,res) {
+    session=req.session;
+    if(session.user) {
+        res.redirect('/')
+    } else {
+        if(req.body.username === "adamxp12" && req.body.password === "test") {
+            session.user = "adamxp12";
+            res.redirect('/')
+        } else {
+            res.redirect('/')
+        }  
+    }
 })
 
 
