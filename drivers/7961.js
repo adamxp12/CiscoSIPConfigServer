@@ -11,7 +11,7 @@ driver.id = 7961;
 driver.name = "Cisco Unified 7961";
 
 // Lines aka how many lines the phone can handle with out extra sidecars
-driver.lines = 2
+driver.lines = 6
 
 // file name for phone upgrade guide (stored in the inc folder) displayed when a new phone is added not running SIP firmware
 driver.upgradeguide = "79x1upgrade.inc"
