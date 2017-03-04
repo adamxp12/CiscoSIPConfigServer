@@ -1,7 +1,7 @@
   <div class="row logincontainer">
       <div class="medium-5 large-6 columns ">
         <img src="img/logo.png"><hr>
-        <p class="light">Login with your username and password {user}</p>
+        <p class="light">Login with your username and password</p>
         <small>Powered by CiscoSiPConfigServer v{ver}</small>
       </div>
       <div class="medium-7 large-6 columns leftborder loginbox">

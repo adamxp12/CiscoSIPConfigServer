@@ -68,6 +68,7 @@ app.get('/*', function(req, res, next) {
 
 // routes go here
 
+// Check if its a first run
 app.get('/', function(req,res, next) {
     ciscosipconfiguser.count({}, function( err, count){
 		if(count > 0) {
@@ -78,7 +79,7 @@ app.get('/', function(req,res, next) {
     })
 })
 
-
+// Setup login page for none logged in users and redirect logged in users
 app.get('/', function (req, res, next) {
     loginpage=loginpage.replace("{ver}", package.version)
     req.page = req.page+loginpage
@@ -88,6 +89,7 @@ app.get('/', function (req, res, next) {
     next()
 })
 
+// Signup route
 app.post('/signup', function(req, res) {
     ciscosipconfiguser.count({}, function( err, count){
 		if(count > 0) {
@@ -106,14 +108,17 @@ app.post('/signup', function(req, res) {
     })
 })
 
+// Include admin router
 var adminroute = require('./routes/admin');
 app.use('/admin', adminroute);
 
+// Simple logout route
 app.get('/logout', function(req,res) {
     session.user = null;
     res.redirect('/')
 })
 
+// Login route
 app.post('/login', function(req,res) {
     session=req.session;
     username = xss(req.body.username);
@@ -140,7 +145,7 @@ app.post('/login', function(req,res) {
     }
 })
 
-
+// Test drivers page
 app.get('/drivers', function(req, res, next) {
     var test = "";
     for(driver in drivers) {
