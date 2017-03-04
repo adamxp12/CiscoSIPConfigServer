@@ -85,8 +85,9 @@ app.get('/', function (req, res, next) {
     req.page = req.page+loginpage
     if(session.user) {
         res.redirect('/admin')
+    } else {
+        next()
     }
-    next()
 })
 
 // Signup route
