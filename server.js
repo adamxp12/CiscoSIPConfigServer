@@ -16,7 +16,8 @@ var express = require('express'),
     helmet = require('helmet'),
     config = require('./config'),
     drivers = require('./drivers/');
-
+clear();
+console.log("LOADING!!");
 // Express setup
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
@@ -47,6 +48,7 @@ app.get('/*', function(req, res, next) {
 
 // routes go here
 
+
 app.get('/', function (req, res, next) {
     loginpage=loginpage.replace("{ver}", package.version)
     req.page = req.page+loginpage
@@ -55,6 +57,9 @@ app.get('/', function (req, res, next) {
     }
     next()
 })
+
+var adminroute = require('./routes/admin');
+app.use('/admin', adminroute);
 
 app.get('/logout', function(req,res) {
     session.user = null;
@@ -68,7 +73,7 @@ app.post('/login', function(req,res) {
     } else {
         if(req.body.username === "adamxp12" && req.body.password === "test") {
             session.user = "adamxp12";
-            res.redirect('/')
+            res.redirect('/admin')
         } else {
             res.redirect('/')
         }  
