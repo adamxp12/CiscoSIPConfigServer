@@ -167,5 +167,5 @@ app.get('/*', function(req,res) {
 app.listen(config.webport, function () {
     clear()
     console.log(package.name + " v" + package.version)
-    console.log("Serving requts on *:"+config.webport)
+    console.log("Serving requests on *:"+config.webport)
 })
