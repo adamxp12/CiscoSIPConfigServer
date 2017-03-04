@@ -3,12 +3,19 @@
 // Created out of rage and major headaches of XML files
 // Cisco make good phones but terrible software for them
 
+// Clear console and display a loading message, simply because im coding on a slow network share
+// and sometimes question if I hit enter on my run command
+var clear = require("cli-clear");
+clear();
+console.log("LOADING!!");
+
 // Requires
 var express = require('express'),
     app = express(),
     session = require('express-session'),
     bodyParser = require('body-parser'),
-    clear = require("cli-clear"),
+    mongoose = require('mongoose'),
+    bcrypt = require('bcrypt-nodejs'),
     package = require('./package.json'),
     xss = require('xss'),
     fs = require('fs'),
@@ -16,8 +23,20 @@ var express = require('express'),
     helmet = require('helmet'),
     config = require('./config'),
     drivers = require('./drivers/');
-clear();
-console.log("LOADING!!");
+
+// Mongoose setup
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/ciscosipconfig');
+var Schema = mongoose.Schema,
+ObjectId = Schema.ObjectId;
+
+var UserSchema = new Schema({
+    username : { type: String, required: true, maxlength: 20},
+    password : { type: String, required: true},
+    isAdmin : { type: Boolean, required: true, default: false }
+})
+var ciscosipconfiguser = mongoose.model('ciscosipconfigUser', UserSchema);
+
 // Express setup
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
@@ -34,6 +53,7 @@ app.use(session({
 var header = fs.readFileSync("./inc/header.inc", "utf8", function(err, data) { if (err) throw err; });
 var footer = fs.readFileSync("./inc/footer.inc", "utf8", function(err, data) { if (err) throw err; });
 var loginpage = fs.readFileSync("./inc/login.inc", "utf8", function(err, data) { if (err) throw err; });
+var firstrun = fs.readFileSync("./inc/firstrun.inc", "utf8", function(err, data) { if (err) throw err; });
 
 
 
@@ -48,14 +68,42 @@ app.get('/*', function(req, res, next) {
 
 // routes go here
 
+app.get('/', function(req,res, next) {
+    ciscosipconfiguser.count({}, function( err, count){
+		if(count > 0) {
+			next();
+		} else {
+			res.send(req.page+firstrun.replace("{ver}", package.version)+footer)
+        }
+    })
+})
+
 
 app.get('/', function (req, res, next) {
     loginpage=loginpage.replace("{ver}", package.version)
     req.page = req.page+loginpage
     if(session.user) {
-        req.page = req.page.replace("{user}", session.user)
+        res.redirect('/admin')
     }
     next()
+})
+
+app.post('/signup', function(req, res) {
+    ciscosipconfiguser.count({}, function( err, count){
+		if(count > 0) {
+			res.redirect('/');
+		} else {
+			var newuser = new ciscosipconfiguser({
+                username : xss(req.body.username),
+                password : bcrypt.hashSync(req.body.password),
+                isAdmin : true
+            })
+            newuser.save(function(err, newuser) {
+  			if (err) return console.error(err);
+            });
+            res.redirect('/');
+        }
+    })
 })
 
 var adminroute = require('./routes/admin');
@@ -68,15 +116,27 @@ app.get('/logout', function(req,res) {
 
 app.post('/login', function(req,res) {
     session=req.session;
+    username = xss(req.body.username);
     if(session.user) {
         res.redirect('/')
     } else {
-        if(req.body.username === "adamxp12" && req.body.password === "test") {
-            session.user = "adamxp12";
-            res.redirect('/admin')
-        } else {
-            res.redirect('/')
-        }  
+        ciscosipconfiguser.findOne({ username: username }, function(error, user) {
+            if (error) return console.error(error);
+            if(user === null) {
+    		    // Username not in database
+    		    console.log("Not in database");
+    		    res.redirect('/');
+            } else {
+                console.log(user.password + " " + user.username)
+                if(bcrypt.compareSync(req.body.password, user.password)) {
+                    session.user = username;
+                    console.log("GOOD!")
+                    res.redirect('/')
+                } else {
+                    res.redirect('/');
+                }
+            }
+        })
     }
 })
 

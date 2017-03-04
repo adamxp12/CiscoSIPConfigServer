@@ -30,7 +30,7 @@
     "express": "^4.14.1",
     "express-session": "^1.15.1",
     "helmet": "^3.4.1",
-    "mongoose": "^4.5.9",
+    "mongoose": "^4.8.5",
     "shortid": "^2.2.6",
     "unix-timestamp": "^0.2.0",
     "xss": "^0.2.13"
