@@ -1,5 +1,6 @@
 var express = require('express'),
     packagejson = require('../package.json'),
+    drivers = require('../drivers/')
     fs = require('fs'),
     router = express.Router();
 
@@ -22,6 +23,7 @@ router.get('*', function(req, res, next) {
 // Main dashboard
 router.get('/', function(req, res, next) {
     req.page = req.page + dashboardinc
+    req.page = req.page.replace("{drivercount}", Object.keys(drivers).length)
     next()
 })
 

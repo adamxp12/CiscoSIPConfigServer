@@ -15,7 +15,7 @@
             </div>
 
             <div class="medium-3 columns">
-              <div class="callout"><h5>Total Drivers</h5><h4>176</h4></div>
+              <div class="callout"><h5>Total Drivers</h5><h4>{drivercount}</h4></div>
             </div>
 
             <div class="medium-3 columns">
