@@ -1,32 +1,15 @@
 
+
+
       <!-- Page Content -->
       <div class="off-canvas-content maincontent" data-off-canvas-content>
         <div class="page-head with-bg">
           <button type="button" class="button secondary hide-for-large" data-toggle="offCanvas"><i class="fa fa-fw fa-bars"></i></button>
-          <h3>Dashboard</h3>
-          <p>Where it begins</p>
+          <h3>Firmware</h3>
+          <p>The first stage to getting your Cisco phone working with SIP</p>
         </div>
 
         <div class="page-inner">
-          <div class="row">
-
-            <div class="medium-3 columns">
-              <div class="callout"><h5>Deployed Phones</h5><h4>20</h4></div>
-            </div>
-
-            <div class="medium-3 columns">
-              <div class="callout"><h5>Total Drivers</h5><h4>176</h4></div>
-            </div>
-
-            <div class="medium-3 columns">
-              <div class="callout"><h5>...</h5><h4>54</h4></div>
-            </div>
-
-            <div class="medium-3 columns">
-              <div class="callout"><h5>...</h5><h4>7</h4></div>
-            </div>
-
-        </div>
 
         <div class="row">
           <div class="medium-7 columns">
