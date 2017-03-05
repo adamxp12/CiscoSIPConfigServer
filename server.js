@@ -133,10 +133,8 @@ app.post('/login', function(req,res) {
     		    console.log("Not in database");
     		    res.redirect('/');
             } else {
-                console.log(user.password + " " + user.username)
                 if(bcrypt.compareSync(req.body.password, user.password)) {
                     session.user = username;
-                    console.log("GOOD!")
                     res.redirect('/')
                 } else {
                     res.redirect('/');
