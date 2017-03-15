@@ -24,10 +24,12 @@
   },
   "homepage": "https://github.com/adamxp12/CiscoSIPConfigServer#readme",
   "dependencies": {
+    "app-root-path": "^2.0.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.0",
     "cli-clear": "^1.0.4",
     "express": "^4.14.1",
+    "express-fileupload": "^0.1.2",
     "express-session": "^1.15.1",
     "helmet": "^3.4.1",
     "mongoose": "^4.8.5",

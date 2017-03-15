@@ -19,6 +19,7 @@ var express = require('express'),
     package = require('./package.json'),
     xss = require('xss'),
     fs = require('fs'),
+    fileUpload = require('express-fileupload'),
     shortid = require('shortid'),
     helmet = require('helmet'),
     config = require('./config'),
@@ -37,6 +38,12 @@ var UserSchema = new Schema({
 })
 var ciscosipconfiguser = mongoose.model('ciscosipconfigUser', UserSchema);
 
+var fwSchema = new Schema({
+    phonemodel : { type: String, required: true, maxlength: 5},
+    loadfile : { type: String, required: true}
+})
+var ciscosipconfigfw = mongoose.model('ciscosipconfigfw', fwSchema);
+
 // Express setup
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
@@ -48,6 +55,9 @@ app.use(session({
   cookie: {},
   saveUninitialized: false,
   resave: false
+}));
+app.use(fileUpload({
+	limits: { fileSize: 20 * 1024 * 1024 },
 }));
 
 var header = fs.readFileSync("./inc/header.inc", "utf8", function(err, data) { if (err) throw err; });

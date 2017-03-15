@@ -12,19 +12,12 @@
         <div class="page-inner">
 
         <div class="row">
-          <div class="medium-7 columns">
-            <div class="callout">
-              <p>Welcome to CiscoSIPConfigServer v1.0 name is WIP if you cant tell</p>
-              <p>A all in one solution for generating and serving config files for Cisco Unified phones, no more brain numbing XML files.</p>
-              <p>To get started add a new phone in the sidebar.</p>
-            </div>
-          </div>
-
-          <div class="medium-5 columns">
-            <div class="callout">
-              <a href="/logout" class="button alert tiny expanded">Logout</a>
-            </div>
-          </div>
+          <a class="button success" href="/admin/firmware/new">Upload</a>
+        </div>
+        <div class="row">
+        <ul>
+        {firmwarelist}
+        </ul>
         </div>
 
 
