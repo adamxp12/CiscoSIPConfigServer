@@ -8,6 +8,12 @@ Notice2: I have a strong dislike towards cisco's prcing and support, why is it a
 
 also try buying a CME licence, not possible which is why I am making this as their hardware is good but they wont sell me their terribly outdated hardware/software for a price humans can afford
 
+# Todo List
+* XML generation
+* TFTP server
+* Background creation
+* Ringtone generator
+
 # Phone compatibility
 The following phones I own so I can test (once complete) for compatibility
 * Cisco 7912 (no chance, See below)
