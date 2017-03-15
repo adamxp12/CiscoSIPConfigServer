@@ -9,6 +9,11 @@ Notice2: I have a strong dislike towards cisco's prcing and support, why is it a
 also try buying a CME licence, not possible which is why I am making this as their hardware is good but they wont sell me their terribly outdated hardware/software for a price humans can afford
 
 # Phone compatibility
+The following phones I own so I can test (once complete) for compatibility
+* Cisco 7912 (no chance, See below)
+* Cisco 7911 - Should work
+* Cisco 7941 - Should work
+
 I know the project is not even functional yet but to save me from hurting my brain I am going to form a list of phones that I know will probably not be compatible.
 
 The majority of phones on this list are incompitble for trivial reasons be it not using the XML config that I am used to in which case it might be simple to add support (although the 7940/7960 are rubbish to get now seeing as the 7941/7961 are same if not cheaper)
