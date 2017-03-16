@@ -5,6 +5,7 @@ var express = require('express'),
     appRoot = require('app-root-path'),
     drivers = require('../drivers/')
     fs = require('fs'),
+    unzipper = require('unzipper'),
     router = express.Router();
 
 var header = fs.readFileSync("./inc/header.inc", "utf8", function(err, data) { if (err) throw err; });
@@ -37,14 +38,18 @@ router.get('/firmware', function(req, res, next) {
     fwlist = ""
     ciscosipconfigfw.find({}, function(err, fwdb) {
         fwdb.forEach(function(fw) {
-            fwlist = fwlist + "<li>Cisco "+fw.phonemodel+" - "+fw.loadfile+"</li>"
+            fwlist = fwlist + "<li>Cisco "+fw.phonemodel+" - "+fw.loadfile+" | <a href=\"/admin/firmware/remove/"+fw._id+"\">Remove</a></li>"
         })
     }).then(function() {
         req.page = req.page.replace("{firmwarelist}", fwlist);
         next()
+    })    
+})
+
+router.get('/firmware/remove/:id', function(req,res) {
+    ciscosipconfigfw.findByIdAndRemove(req.params.id, function(err, fwdb) {
+        res.redirect("/admin/firmware/")
     })
-    test = "<li>Cisco 7941 - SIP41.9-4-2SR3-1S | <a>Remove</a></li>";
-    
 })
 
 router.get('/firmware/new', function (req, res, next) {
@@ -56,6 +61,7 @@ router.post('/firmware/new', function (req, res) {
     zipfile = req.files.file;
     zipfiledata = zipfile.data;
     var tempPath = appRoot + '/zips/' + req.files.file.name;
+    var newPath = appRoot + '/tftpboot/';
     zipfile.mv(tempPath, function (err) {
         if (err) {}
 
@@ -66,7 +72,14 @@ router.post('/firmware/new', function (req, res) {
         newfw.save(function (err, newfw) {
             if (err) return console.error(err);
         });
-        res.redirect('/admin/firmware')
+
+        fs.createReadStream(tempPath)
+        .pipe(unzipper.Extract({ path: newPath }))
+        .on('close', function (close) {
+            console.log(close)
+            res.redirect('/admin/firmware')
+        })
+        
     })
 })
 

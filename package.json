@@ -35,6 +35,7 @@
     "mongoose": "^4.8.5",
     "shortid": "^2.2.6",
     "unix-timestamp": "^0.2.0",
+    "unzipper": "^0.8.8",
     "xss": "^0.2.13"
   },
   "devDependencies": {

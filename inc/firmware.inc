@@ -15,6 +15,9 @@
           <a class="button success" href="/admin/firmware/new">Upload</a>
         </div>
         <div class="row">
+        <p>Below is a list of firmware known by this server, note that this is blind as in it will not detect changes in TFTP folder and currently deleting firmware here does not delete it in TFTP folder either just makes it not possible to select when deploying phones.</p>
+        <small>THIS SECTION REQUIRES SOME SERIOUS REWORK TO BE USEFUL LIKE AUTO LOAD FILE DETECTION AND ABILITY TO REMOVE THE UNZIPED FILES IN TFTP DIRECTORY, Get involved on GitHub</small>
+        <hr>
         <ul>
         {firmwarelist}
         </ul>
