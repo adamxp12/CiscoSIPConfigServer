@@ -15,6 +15,7 @@
         <!-- Menu -->
         <ul class="menu vertical">
           <li><a href="/admin"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+          <li><a href="/admin/phones"><i class="fa fa-fw fa-phone"></i> Phones</a></li>
           <li><a href="/admin/firmware"><i class="fa fa-fw fa-download"></i> Firmware</a></li>
         </ul>
       </div>
