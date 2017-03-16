@@ -28,6 +28,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.0",
     "cli-clear": "^1.0.4",
+    "delete": "^0.3.2",
     "express": "^4.14.1",
     "express-fileupload": "^0.1.2",
     "express-session": "^1.15.1",

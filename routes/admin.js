@@ -6,6 +6,7 @@ var express = require('express'),
     drivers = require('../drivers/')
     fs = require('fs'),
     unzipper = require('unzipper'),
+    del = require('delete'),
     router = express.Router();
 
 var header = fs.readFileSync("./inc/header.inc", "utf8", function(err, data) { if (err) throw err; });
@@ -76,7 +77,7 @@ router.post('/firmware/new', function (req, res) {
         fs.createReadStream(tempPath)
         .pipe(unzipper.Extract({ path: newPath }))
         .on('close', function (close) {
-            console.log(close)
+            del.sync([tempPath]);
             res.redirect('/admin/firmware')
         })
         
