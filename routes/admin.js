@@ -32,7 +32,11 @@ router.get('*', function(req, res, next) {
 router.get('/', function(req, res, next) {
     req.page = req.page + dashboardinc
     req.page = req.page.replace("{drivercount}", Object.keys(drivers).length)
-    next()
+    ciscosipconfigphone.count({}, function(err, count){
+        req.page = req.page.replace("{phonescount}", count)
+        next()
+    });
+
 })
 
 // Firmware dashboard

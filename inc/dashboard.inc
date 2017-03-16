@@ -11,7 +11,7 @@
           <div class="row">
 
             <div class="medium-3 columns">
-              <div class="callout"><h5>Deployed Phones</h5><h4>20</h4></div>
+              <div class="callout"><h5>Deployed Phones</h5><h4>{phonescount}</h4></div>
             </div>
 
             <div class="medium-3 columns">
