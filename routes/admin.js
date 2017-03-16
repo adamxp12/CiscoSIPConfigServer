@@ -1,6 +1,7 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     ciscosipconfigfw = require('mongoose').model('ciscosipconfigfw'),
+    ciscosipconfigphone = require('mongoose').model('ciscosipconfigphone'),
     packagejson = require('../package.json'),
     appRoot = require('app-root-path'),
     drivers = require('../drivers/')
@@ -13,6 +14,7 @@ var header = fs.readFileSync("./inc/header.inc", "utf8", function(err, data) { i
 var footer = fs.readFileSync("./inc/footer.inc", "utf8", function(err, data) { if (err) throw err; });
 var adminmenu = fs.readFileSync("./inc/adminmenu.inc", "utf8", function(err, data) { if (err) throw err; });
 var dashboardinc = fs.readFileSync("./inc/dashboard.inc", "utf8", function(err, data) { if (err) throw err; });
+var phonesinc = fs.readFileSync("./inc/phones.inc", "utf8", function(err, data) { if (err) throw err; });
 var firmwareinc = fs.readFileSync("./inc/firmware.inc", "utf8", function(err, data) { if (err) throw err; });
 var firmwarenewinc = fs.readFileSync("./inc/firmwarenew.inc", "utf8", function(err, data) { if (err) throw err; });
 
@@ -82,6 +84,20 @@ router.post('/firmware/new', function (req, res) {
         })
         
     })
+})
+
+// Phones dashboard
+router.get('/phones', function(req, res, next) {
+    req.page = req.page + phonesinc
+    phonelist = ""
+    ciscosipconfigphone.find({}, function(err, phonedb) {
+        phonedb.forEach(function(phone) {
+            phonelist = phonelist + "<tr><td>"+phone.name+"</td><td>"+phone.extension+"</td><td>"+phone.model+"</td><td>"+phone.mac+"</td></tr>"
+        })
+    }).then(function() {
+        req.page = req.page.replace("{phonelist}", phonelist);
+        next()
+    })    
 })
 
 

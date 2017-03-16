@@ -44,6 +44,20 @@ var fwSchema = new Schema({
 })
 var ciscosipconfigfw = mongoose.model('ciscosipconfigfw', fwSchema);
 
+var phoneSchema = new Schema({
+    name : {type: String, required: true, maxlength: 20},
+    model : { type: String, required: true, maxlength: 4},
+    phonelabel : { type: String, maxlength: 20},
+    servicesurl : String,
+    line1label : { type: String, required: true, maxlength: 20},
+    sipserverip: { type: String, required: true},
+    extension : { type: Number, required: true},
+    password : { type: String, required: true, maxlength: 8},
+    mac : { type: String, required: true, maxlength: 14},
+    loadfile : { type: String, required: true}
+})
+var ciscosipconfigphone = mongoose.model('ciscosipconfigphone', phoneSchema);
+
 // Express setup
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
