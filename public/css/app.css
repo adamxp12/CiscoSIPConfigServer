@@ -122,9 +122,9 @@ small, label, span {
 }
 
 .page-head.with-bg {
-	background: linear-gradient(rgba(98,103,105,0.6),rgba(98,103,105,0.6)),url("../img/headtest.jpg");
+	background: linear-gradient(rgba(98,103,105,0.6),rgba(98,103,105,0.6)),url("../img/bg.jpg");
 	background-size: cover;
-	background-position: bottom;
+	background-position: center;
 	color: rgba(236, 240, 241,0.8);
 }
 
