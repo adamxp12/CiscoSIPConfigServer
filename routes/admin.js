@@ -8,6 +8,7 @@ var express = require('express'),
     fs = require('fs'),
     unzipper = require('unzipper'),
     del = require('delete'),
+    xss = require('xss'),
     router = express.Router();
 
 var header = fs.readFileSync("./inc/header.inc", "utf8", function(err, data) { if (err) throw err; });
@@ -20,7 +21,7 @@ var firmwareinc = fs.readFileSync("./inc/firmware.inc", "utf8", function(err, da
 var firmwarenewinc = fs.readFileSync("./inc/firmwarenew.inc", "utf8", function(err, data) { if (err) throw err; });
 
 
-router.get('*', function(req, res, next) {
+router.use('*', function(req, res, next) {
     if(req.session.user){
         req.page = header+adminmenu.replace("{username}", req.session.user);
         next();
@@ -97,7 +98,7 @@ router.get('/phones', function(req, res, next) {
     phonelist = ""
     ciscosipconfigphone.find({}, function(err, phonedb) {
         phonedb.forEach(function(phone) {
-            phonelist = phonelist + "<tr><td>"+phone.name+"</td><td>"+phone.extension+"</td><td>"+phone.model+"</td><td>"+phone.mac+"</td></tr>"
+            phonelist = phonelist + "<tr><td>"+phone.name+"</td><td>"+phone.extension+"</td><td>"+drivers[phone.model].name+"</td><td>"+phone.mac+"</td></tr>"
         })
     }).then(function() {
         req.page = req.page.replace("{phonelist}", phonelist);
@@ -117,7 +118,21 @@ router.get('/phones/deploy', function(req,res,next) {
 })
 
 router.post('/phones/deploy', function(req,res,next) {
-    //TODO
+    var newphone = new ciscosipconfigphone({
+            name : xss(req.body.phonelabel),
+            model : xss(req.body.phonedriver),
+            phonelabel : xss(req.body.phonelabel),
+            line1label : "Line 1 - Ext"+xss(req.body.phonesipid),
+            sipserverip : xss(req.body.phonesipsrv),
+            extension : xss(req.body.phonesipid),
+            password : xss(req.body.phonesippass),
+            mac : xss(req.body.phonemac),
+            loadfile : "none"
+        })
+    newphone.save(function(err, newuser) {
+  			if (err) return console.error(err);
+            res.redirect('/admin/phones')
+    });
 })
 
 router.get("*", function(req,res) {
