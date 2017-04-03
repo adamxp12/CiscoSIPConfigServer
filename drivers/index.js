@@ -12,6 +12,6 @@ var drivers = {};
 
 drivers.cisco7941 = require('./7941.js');
 drivers.cisco7961 = require('./7961.js');
-
+drivers.cisco7971 = require('./7971.js');
 
 module.exports = drivers;
