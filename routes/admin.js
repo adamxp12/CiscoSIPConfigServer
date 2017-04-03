@@ -110,7 +110,6 @@ router.get('/phones/deploy', function(req,res,next) {
     req.page = req.page + deployinc
     var driverlist = "";
     for(driver in drivers) {
-        console.log(driver)
         driverlist = driverlist + "<option value=\""+ driver +"\">"+drivers[driver].name+"</option>";
     }
     req.page = req.page.replace("{drivers}", driverlist)
