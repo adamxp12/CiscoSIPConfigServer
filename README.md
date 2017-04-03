@@ -19,6 +19,8 @@ The following phones I own so I can test (once complete) for compatibility
 * Cisco 7912 (no chance, See below)
 * Cisco 7911 - Should work
 * Cisco 7941 - Should work
+* Cisco 7961 - dont own but basicly a 7941 with more buttons so WILL work
+* Cisco 7971 - Should work
 
 I know the project is not even functional yet but to save me from hurting my brain I am going to form a list of phones that I know will probably not be compatible.
 
