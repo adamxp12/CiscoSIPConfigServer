@@ -12,7 +12,7 @@
         <div class="page-inner">
 
         <div class="row">
-          <a class="button success" href="/admin/phones/new">Deploy New</a>
+          <a class="button success" href="/admin/phones/deploy">Deploy New</a>
         </div>
         <div class="row">
         <p>Below is a list of phones managed by this server.</p>

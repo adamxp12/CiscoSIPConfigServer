@@ -14,6 +14,7 @@ var header = fs.readFileSync("./inc/header.inc", "utf8", function(err, data) { i
 var footer = fs.readFileSync("./inc/footer.inc", "utf8", function(err, data) { if (err) throw err; });
 var adminmenu = fs.readFileSync("./inc/adminmenu.inc", "utf8", function(err, data) { if (err) throw err; });
 var dashboardinc = fs.readFileSync("./inc/dashboard.inc", "utf8", function(err, data) { if (err) throw err; });
+var deployinc = fs.readFileSync("./inc/deploy.inc", "utf8", function(err, data) { if (err) throw err; });
 var phonesinc = fs.readFileSync("./inc/phones.inc", "utf8", function(err, data) { if (err) throw err; });
 var firmwareinc = fs.readFileSync("./inc/firmware.inc", "utf8", function(err, data) { if (err) throw err; });
 var firmwarenewinc = fs.readFileSync("./inc/firmwarenew.inc", "utf8", function(err, data) { if (err) throw err; });
@@ -104,6 +105,20 @@ router.get('/phones', function(req, res, next) {
     })    
 })
 
+router.get('/phones/deploy', function(req,res,next) {
+    req.page = req.page + deployinc
+    var driverlist = "";
+    for(driver in drivers) {
+        console.log(driver)
+        driverlist = driverlist + "<option value=\""+ driver +"\">"+drivers[driver].name+"</option>";
+    }
+    req.page = req.page.replace("{drivers}", driverlist)
+    next()
+})
+
+router.post('/phones/deploy', function(req,res,next) {
+    //TODO
+})
 
 router.get("*", function(req,res) {
     req.page = req.page + footer;
